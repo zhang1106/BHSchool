@@ -1,0 +1,64 @@
+﻿@model web.Models.ClassStudent
+
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <hr />
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.studentId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(m => m.studentId, Model.StudentList, htmlAttributes: new { @class = "control-dropdown col-md-2" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.classId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(m => m.classId, Model.ClassList, htmlAttributes: new { @class = "control-dropdown col-md-2" })
+                <details id="classInfo" open></details>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Submit" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/jquery")
+    <script type="text/javascript">
+       $(document).ready(function () {
+
+           SetCourseInfo();
+
+           $('#classId').change(function () {
+               SetCourseInfo();
+           })
+
+           function SetCourseInfo() {
+               $.ajax({
+                   url: '@Url.Action("GetClass", "class_student")',
+                   type: 'POST',
+                   data: { id: $('#classId').val() },
+                   success: function (result) {
+                       //alert(result.id);
+                       $('#classInfo').text(" semester:" + result.Semester + " fee:" + result.Fee + " time:" + result.Time + result.Warning);
+                   },
+                   error: function () {
+                       alert("error");
+                   }
+               });
+               return false;
+           }
+
+       })
+    </script>
+}
+
+
+
+

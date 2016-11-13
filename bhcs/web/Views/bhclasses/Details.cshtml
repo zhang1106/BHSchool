@@ -1,0 +1,90 @@
+﻿@model data.bhclass
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>bhclass</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.timeslotId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.timeslotId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.teacherId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.teacherId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.classroomId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.classroomId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.courseId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.courseId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.fee)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fee)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.semester)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.semester)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.createdAt)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.createdAt)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.modifiedAt)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.modifiedAt)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.modifiedBy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.modifiedBy)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

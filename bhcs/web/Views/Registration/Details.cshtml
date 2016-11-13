@@ -1,0 +1,74 @@
+﻿
+@model web.Models.ClassStudentSummary
+
+@{
+    ViewBag.Title = "Registration Management";
+}
+
+<h2>家庭信息</h2>
+<a href="javascript:window.print()">Print</a> | @Html.ActionLink("Add Class", "Create", new { id = Model.Household.id})
+<table width="50%">
+    <tr>
+        <td>联系人</td>
+        <td>@Model.Household.firstname @Model.Household.lastname </td>
+    </tr>
+    <tr>
+        <td>联系电话</td>
+        <td>@Model.Household.phone</td>
+    </tr>
+    <tr>
+        <td>电子邮件</td>
+        <td>@Model.Household.email</td>
+    </tr>
+    <tr>
+        <td valign="top"><address>家庭住址</address></td>
+        <td>
+            <address>
+                @Model.Address.address1 <br />
+                @Model.Address.address2 <br />
+                @Model.Address.city <br />
+                @Model.Address.zip <br />
+            </address>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2"><hr /></td>
+    </tr>
+</table>
+<h2>注册信息</h2>
+
+@Html.Partial("~/Views/Shared/_RegistrationList.cshtml")
+<hr />
+<p>
+    <h2>
+        @Html.ActionLink("Back to List", "Index") |
+        @Html.ActionLink("Confirm", "Confirm", new { id = Model.Household.id })
+    </h2>
+</p>
+<param>
+<p>
+    To complete the registration, ALL students and guardians must READ the following statements and SIGN below. For youngsters (age 18 or under), their legal parent/guardian must sign for them.
+</p>
+<p>
+    Release of Liability Statement for 2016-2017 school year, September 2016 through June 2017:
+</p>
+<p>
+    1.    In consideration of the activities at the Columbia Middle School, 345 Plainfield AveBerkeley Heights, NJ, sponsored by Berkeley Heights Huaxia Chinese School, a nonprofit organization, it is understood and agreed that said School or its officials, teachers or volunteers will not be held responsible for any injury or accident sustained by the member of our party, or for the loss of or to any property belonging to a member of our party or anyone else.
+</p>
+<p>
+    2.    In the course of conducting school activities, the school will be seeking media coverage and involvement that may include Web Site text and images, and possibly Newspapers and Television. The signature below indicates our consent that the photo, name, and school work of the member of our party may be included in the media as noted above.
+</p>
+<p>
+    <br />
+    <br />
+    <strong>Signature:</strong>
+    <br /><br />
+</p>
+<p>
+    <strong>
+        Date：
+    </strong>
+</p>
+
+</param>
+

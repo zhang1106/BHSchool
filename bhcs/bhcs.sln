@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.24720.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspNet.Identity.MySQL", "auth\AspNet.Identity.MySQL.csproj", "{26F6ECF9-4369-417B-8CF2-54FA92DF3660}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "data", "data\data.csproj", "{6DA829FC-82FE-417C-B3DA-BFADE48B760B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "web", "web\web.csproj", "{0FD20AAB-8555-4E0D-BEDD-1177FC025BA1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{26F6ECF9-4369-417B-8CF2-54FA92DF3660}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{26F6ECF9-4369-417B-8CF2-54FA92DF3660}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{26F6ECF9-4369-417B-8CF2-54FA92DF3660}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{26F6ECF9-4369-417B-8CF2-54FA92DF3660}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{6DA829FC-82FE-417C-B3DA-BFADE48B760B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6DA829FC-82FE-417C-B3DA-BFADE48B760B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6DA829FC-82FE-417C-B3DA-BFADE48B760B}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{6DA829FC-82FE-417C-B3DA-BFADE48B760B}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{0FD20AAB-8555-4E0D-BEDD-1177FC025BA1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0FD20AAB-8555-4E0D-BEDD-1177FC025BA1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0FD20AAB-8555-4E0D-BEDD-1177FC025BA1}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{0FD20AAB-8555-4E0D-BEDD-1177FC025BA1}.Release|Any CPU.Build.0 = Debug|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

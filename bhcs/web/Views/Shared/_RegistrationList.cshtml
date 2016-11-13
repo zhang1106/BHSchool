@@ -1,0 +1,107 @@
+﻿@model web.Models.ClassStudentSummary
+@using Microsoft.AspNet.Identity
+
+@{
+    var url = System.Web.HttpContext.Current.Request.Url.OriginalString;
+    bool isEditable = url.EndsWith("class_student");
+    bool isAdmin = User.IsInRole("Admin");
+    bool closed = !isAdmin && web.Service.SiteHelper.RegsitrationClosed;
+}
+
+<hr/>
+<table width="70%">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Classes[0].StudentName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Classes[0].ClassName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Classes[0].Semester)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Classes[0].Time)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Classes[0].Tuition)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Classes[0].TextbookFee)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Classes[0].Status)
+        </th>
+        <th></th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.Classes) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.StudentName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ClassName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Semester)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Time)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Tuition)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TextbookFee)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td class="text-danger">
+                @Html.DisplayFor(modelItem => item.Warning)
+            </td>
+            <td>
+                @if(!closed && item.Status=="Active")
+            {
+                    <div>
+                        @Html.ActionLink("Delete", "Delete", new { id=item.id })
+                    </div>
+            }
+            else if(!closed && item.Confirmed)
+            {
+                   <div>@Html.ActionLink("Cancel", "Cancel", "Registration", new { id=item.id }, null)</div>
+            }
+            </td>
+        </tr>
+}
+</table>
+<table width="50%">
+    <tr>
+        <td colspan="2"><hr /></td>
+    </tr>
+
+    @foreach (var item in Model.Fee) {
+        <tr>
+            <td>@Html.DisplayFor(modelItem => item.description)</td>
+            <td>@Html.DisplayFor(modelItem => item.value)</td>
+        </tr>
+}
+    <tr>
+        <td>学费</td>
+        <td>@Model.TotalTuition</td>
+    </tr>
+    <tr>
+        <td>课本费</td>
+        <td>@Model.TotalTextbookFee</td>
+    </tr>
+    <tr>
+        <td colspan="2"><hr /></td>
+    </tr>
+    <tr>
+        <td>共计</td>
+        <td>@Model.Total</td>
+    </tr>
+
+</table>

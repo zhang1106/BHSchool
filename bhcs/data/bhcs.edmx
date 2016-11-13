@@ -1,0 +1,668 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="bhcsModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.7" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="address">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="memberId" Type="int" />
+          <Property Name="address1" Type="varchar" MaxLength="200" />
+          <Property Name="address2" Type="varchar" MaxLength="200" />
+          <Property Name="city" Type="varchar" MaxLength="100" />
+          <Property Name="state" Type="varchar" MaxLength="45" />
+          <Property Name="zip" Type="varchar" MaxLength="20" />
+          <Property Name="country" Type="varchar" MaxLength="45" />
+          <Property Name="updatedAt" Type="datetime" Precision="0" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="balance">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="amount" Type="decimal" Precision="20" Scale="2" />
+          <Property Name="type" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="description" Type="varchar" MaxLength="200" />
+          <Property Name="updated_at" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="updated_by" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="deleted" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="bhclass">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="timeslotId" Type="int" />
+          <Property Name="teacherId" Type="int" />
+          <Property Name="classroomId" Type="int" />
+          <Property Name="fee" Type="decimal" Precision="10" Scale="0" />
+          <Property Name="semester" Type="varchar" MaxLength="100" />
+          <Property Name="createdAt" Type="datetime" Precision="0" StoreGeneratedPattern="Identity" />
+          <Property Name="modifiedAt" Type="datetime" Precision="0" StoreGeneratedPattern="Identity" />
+          <Property Name="modifiedBy" Type="varchar" MaxLength="45" />
+          <Property Name="courseId" Type="int" />
+          <Property Name="deleted" Type="bit" />
+        </EntityType>
+        <EntityType Name="class_student">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="classId" Type="int" Nullable="false" />
+          <Property Name="studentId" Type="int" Nullable="false" />
+          <Property Name="createdAt" Type="datetime" Precision="0" StoreGeneratedPattern="Identity" />
+          <Property Name="status" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="modifiedAt" Type="datetime" Precision="0" StoreGeneratedPattern="Identity" />
+          <Property Name="modifiedBy" Type="varchar" MaxLength="45" />
+        </EntityType>
+        <EntityType Name="classroom">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="bigint" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="45" />
+          <Property Name="capacity" Type="int" />
+          <Property Name="function" Type="varchar" MaxLength="200" />
+          <Property Name="description" Type="varchar" MaxLength="200" />
+          <Property Name="createAt" Type="datetime" Precision="0" StoreGeneratedPattern="Identity" />
+          <Property Name="modifiedAt" Type="datetime" Precision="0" StoreGeneratedPattern="Identity" />
+          <Property Name="modifiedBy" Type="varchar" MaxLength="45" />
+        </EntityType>
+        <EntityType Name="config">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="type" Type="varchar" MaxLength="45" />
+          <Property Name="key" Type="varchar" MaxLength="45" />
+          <Property Name="value" Type="varchar" MaxLength="45" />
+          <Property Name="description" Type="varchar" MaxLength="200" />
+          <Property Name="modifiedAt" Type="datetime" Precision="0" />
+        </EntityType>
+        <EntityType Name="course">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="bigint" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="100" />
+          <Property Name="textbook" Type="varchar" MaxLength="100" />
+          <Property Name="textbookFee" Type="decimal" Precision="10" Scale="0" />
+          <Property Name="description" Type="varchar" MaxLength="100" />
+          <Property Name="minAge" Type="int" />
+          <Property Name="modifiedAt" Type="datetime" Precision="0" />
+        </EntityType>
+        <EntityType Name="image">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="file" Type="mediumblob" />
+          <Property Name="name" Type="varchar" MaxLength="45" />
+          <Property Name="type" Type="varchar" MaxLength="45" />
+        </EntityType>
+        <EntityType Name="item">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="desc" Type="varchar" MaxLength="1000" />
+          <Property Name="imageId" Type="int" />
+          <Property Name="ownerId" Type="int" />
+          <Property Name="status" Type="varchar" MaxLength="45" />
+          <Property Name="updatedBy" Type="varchar" MaxLength="45" />
+          <Property Name="updatedAt" Type="datetime" Precision="0" />
+        </EntityType>
+        <EntityType Name="item_sharing">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="itemId" Type="int" Nullable="false" />
+          <Property Name="borrowerId" Type="int" />
+          <Property Name="updatedBy" Type="varchar" MaxLength="45" />
+          <Property Name="updatedAt" Type="datetime" Precision="0" />
+          <Property Name="borrowDate" Type="datetime" Precision="0" />
+          <Property Name="returnDate" Type="datetime" Precision="0" />
+        </EntityType>
+        <EntityType Name="member">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="firstname" Type="varchar" MaxLength="45" />
+          <Property Name="lastname" Type="varchar" MaxLength="45" />
+          <Property Name="chineseName" Type="varchar" MaxLength="45" />
+          <Property Name="gender" Type="char" MaxLength="1" />
+          <Property Name="born" Type="date" />
+          <Property Name="email" Type="varchar" MaxLength="100" />
+          <Property Name="type" Type="varchar" MaxLength="45" />
+          <Property Name="title" Type="varchar" MaxLength="45" />
+          <Property Name="phone" Type="varchar" MaxLength="20" />
+          <Property Name="householdId" Type="int" />
+          <Property Name="active" Type="bit" />
+          <Property Name="modifiedAt" Type="datetime" Precision="0" StoreGeneratedPattern="Identity" />
+          <Property Name="createdAt" Type="datetime" Precision="0" StoreGeneratedPattern="Identity" />
+          <Property Name="createdBy" Type="varchar" MaxLength="45" />
+        </EntityType>
+        <EntityType Name="message">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="45" />
+          <Property Name="title" Type="varchar" MaxLength="200" />
+          <Property Name="body" Type="longtext" />
+          <Property Name="category" Type="varchar" MaxLength="45" />
+          <Property Name="createdAt" Type="datetime" Precision="0" StoreGeneratedPattern="Identity" />
+          <Property Name="createdBy" Type="varchar" MaxLength="45" />
+        </EntityType>
+        <EntityType Name="timeslot">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="bigint" Nullable="false" />
+          <Property Name="start" Type="varchar" MaxLength="45" />
+          <Property Name="end" Type="varchar" MaxLength="45" />
+          <Property Name="createAt" Type="datetime" Precision="0" StoreGeneratedPattern="Identity" />
+          <Property Name="modifiedAt" Type="datetime" Precision="0" StoreGeneratedPattern="Identity" />
+          <Property Name="modifiedBy" Type="varchar" MaxLength="45" />
+        </EntityType>
+        <EntityType Name="transaction">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="memberId" Type="int" Nullable="false" />
+          <Property Name="amount" Type="decimal" Precision="22" Scale="4" />
+          <Property Name="description" Type="varchar" MaxLength="200" />
+          <Property Name="updatedAt" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="updatedBy" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="status" Type="varchar" MaxLength="45" Nullable="false" />
+        </EntityType>
+        <EntityType Name="transactiondetail">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="transactionId" Type="int" Nullable="false" />
+          <Property Name="ItemId" Type="int" />
+          <Property Name="transactionType" Type="varchar" MaxLength="45" />
+          <Property Name="description" Type="varchar" MaxLength="200" />
+          <Property Name="updatedAt" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="updatedBy" Type="varchar" MaxLength="45" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="bhcsModelStoreContainer">
+          <EntitySet Name="address" EntityType="Self.address" Schema="bhcs" store:Type="Tables" />
+          <EntitySet Name="balance" EntityType="Self.balance" Schema="bhcs" store:Type="Tables" />
+          <EntitySet Name="bhclass" EntityType="Self.bhclass" Schema="bhcs" store:Type="Tables" />
+          <EntitySet Name="class_student" EntityType="Self.class_student" Schema="bhcs" store:Type="Tables" />
+          <EntitySet Name="classroom" EntityType="Self.classroom" Schema="bhcs" store:Type="Tables" />
+          <EntitySet Name="config" EntityType="Self.config" Schema="bhcs" store:Type="Tables" />
+          <EntitySet Name="course" EntityType="Self.course" Schema="bhcs" store:Type="Tables" />
+          <EntitySet Name="image" EntityType="Self.image" Schema="bhcs" store:Type="Tables" />
+          <EntitySet Name="item" EntityType="Self.item" Schema="bhcs" store:Type="Tables" />
+          <EntitySet Name="item_sharing" EntityType="Self.item_sharing" Schema="bhcs" store:Type="Tables" />
+          <EntitySet Name="member" EntityType="Self.member" Schema="bhcs" store:Type="Tables" />
+          <EntitySet Name="message" EntityType="Self.message" Schema="bhcs" store:Type="Tables" />
+          <EntitySet Name="timeslot" EntityType="Self.timeslot" Schema="bhcs" store:Type="Tables" />
+          <EntitySet Name="transaction" EntityType="Self.transaction" Schema="bhcs" store:Type="Tables" />
+          <EntitySet Name="transactiondetail" EntityType="Self.transactiondetail" Schema="bhcs" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="bhcsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="bhcsEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="classrooms" EntityType="bhcsModel.classroom" />
+          <EntitySet Name="courses" EntityType="bhcsModel.course" />
+          <EntitySet Name="members" EntityType="bhcsModel.member" />
+          <EntitySet Name="messages" EntityType="bhcsModel.message" />
+          <EntitySet Name="timeslots" EntityType="bhcsModel.timeslot" />
+          <EntitySet Name="addresses" EntityType="bhcsModel.address" />
+          <EntitySet Name="bhclasses" EntityType="bhcsModel.bhclass" />
+          <EntitySet Name="transactiondetails" EntityType="bhcsModel.transactiondetail" />
+          <EntitySet Name="class_students" EntityType="bhcsModel.class_student" />
+          <EntitySet Name="configs" EntityType="bhcsModel.config" />
+          <EntitySet Name="transactions" EntityType="bhcsModel.transaction" />
+          <EntitySet Name="balances" EntityType="bhcsModel.balance" />
+          <EntitySet Name="images" EntityType="bhcsModel.image" />
+          <EntitySet Name="items" EntityType="bhcsModel.item" />
+          <EntitySet Name="item_sharing" EntityType="bhcsModel.item_sharing" />
+        </EntityContainer>
+        <EntityType Name="classroom">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="capacity" Type="Int32" />
+          <Property Name="function" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="description" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="createAt" Type="DateTime" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="modifiedAt" Type="DateTime" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="modifiedBy" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="course">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="textbook" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="description" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="modifiedAt" Type="DateTime" />
+          <Property Name="textbookFee" Type="Decimal" />
+          <Property Name="minAge" Type="Int32" />
+        </EntityType>
+        <EntityType Name="member">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="householdId" Type="Int32" Nullable="true" />
+          <Property Name="firstname" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="true" />
+          <Property Name="lastname" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="true" />
+          <Property Name="chineseName" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="true" />
+          <Property Name="type" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="true" />
+          <Property Name="title" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="true" />
+          <Property Name="modifiedAt" Type="DateTime" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="createdAt" Type="DateTime" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="createdBy" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" Nullable="true" MaxLength="100" FixedLength="false" Unicode="false" />
+         
+          <Property Name="gender" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="phone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="born" Type="DateTime" Nullable="false" />
+          <Property Name="active" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="message">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="title" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="body" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+          <Property Name="category" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="createdAt" Type="DateTime" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="createdBy" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="name" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="timeslot">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="start" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="end" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="createAt" Type="DateTime" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="modifiedAt" Type="DateTime" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="modifiedBy" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="address">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="memberId" Type="Int32" Nullable="false" />
+          <Property Name="address1" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="address2" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="city" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="state" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="country" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="updatedAt" Type="DateTime" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="zip" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="bhclass">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="timeslotId" Type="Int32" />
+          <Property Name="teacherId" Type="Int32" />
+          <Property Name="classroomId" Type="Int32" />
+          <Property Name="courseId" Type="Int32" />
+          <Property Name="fee" Type="Decimal" />
+          <Property Name="semester" Type="String" MaxLength="50" FixedLength="false" Unicode="false"/>
+          <Property Name="createdAt" Type="DateTime" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="modifiedAt" Type="DateTime" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="modifiedBy" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="deleted" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="transactiondetail">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="transactionId" Type="Int32" Nullable="false" />
+          <Property Name="ItemId" Type="Int32" />
+          <Property Name="transactionType" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="description" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="updatedAt" Type="DateTime" Nullable="false" />
+          <Property Name="updatedBy" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="class_student">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="classId" Type="Int32" Nullable="false" />
+          <Property Name="studentId" Type="Int32" Nullable="false" />
+          <Property Name="createdAt" Type="DateTime" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="status" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="modifiedAt" Type="DateTime" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="modifiedBy" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="config">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="type" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="key" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="value" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="description" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="modifiedAt" Type="DateTime" />
+        </EntityType>
+        <EntityType Name="transaction">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="memberId" Type="Int32" Nullable="false" />
+          <Property Name="amount" Type="Decimal" />
+          <Property Name="description" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="updatedAt" Type="DateTime" Nullable="false" />
+          <Property Name="updatedBy" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="status" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="balance">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="email" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="amount" Type="Decimal" />
+          <Property Name="type" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="description" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="updated_at" Type="DateTime" Nullable="false" />
+          <Property Name="updated_by" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="deleted" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="image">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="file" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="name" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="type" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="item">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="desc" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="imageId" Type="Int32" />
+          <Property Name="ownerId" Type="Int32" />
+          <Property Name="status" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="updatedBy" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="updatedAt" Type="DateTime" />
+        </EntityType>
+        <EntityType Name="item_sharing">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="itemId" Type="Int32" Nullable="false" />
+          <Property Name="borrowerId" Type="Int32" />
+          <Property Name="updatedBy" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="updatedAt" Type="DateTime" />
+          <Property Name="borrowDate" Type="DateTime" />
+          <Property Name="returnDate" Type="DateTime" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="bhcsModelStoreContainer" CdmEntityContainer="bhcsEntities">
+          <EntitySetMapping Name="classrooms">
+            <EntityTypeMapping TypeName="bhcsModel.classroom">
+              <MappingFragment StoreEntitySet="classroom">
+                <ScalarProperty Name="modifiedBy" ColumnName="modifiedBy" />
+                <ScalarProperty Name="modifiedAt" ColumnName="modifiedAt" />
+                <ScalarProperty Name="createAt" ColumnName="createAt" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="function" ColumnName="function" />
+                <ScalarProperty Name="capacity" ColumnName="capacity" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="courses">
+            <EntityTypeMapping TypeName="bhcsModel.course">
+              <MappingFragment StoreEntitySet="course">
+                <ScalarProperty Name="minAge" ColumnName="minAge" />
+                <ScalarProperty Name="textbookFee" ColumnName="textbookFee" />
+                <ScalarProperty Name="modifiedAt" ColumnName="modifiedAt" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="textbook" ColumnName="textbook" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="members">
+            <EntityTypeMapping TypeName="bhcsModel.member">
+              <MappingFragment StoreEntitySet="member">
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="born" ColumnName="born" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="gender" ColumnName="gender" />
+                
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="createdBy" ColumnName="createdBy" />
+                <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+                <ScalarProperty Name="modifiedAt" ColumnName="modifiedAt" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="chineseName" ColumnName="chineseName" />
+                <ScalarProperty Name="lastname" ColumnName="lastname" />
+                <ScalarProperty Name="firstname" ColumnName="firstname" />
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="householdId" ColumnName="householdId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="messages">
+            <EntityTypeMapping TypeName="bhcsModel.message">
+              <MappingFragment StoreEntitySet="message">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="createdBy" ColumnName="createdBy" />
+                <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+                <ScalarProperty Name="body" ColumnName="body" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="category" ColumnName="category" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="timeslots">
+            <EntityTypeMapping TypeName="bhcsModel.timeslot">
+              <MappingFragment StoreEntitySet="timeslot">
+                <ScalarProperty Name="modifiedBy" ColumnName="modifiedBy" />
+                <ScalarProperty Name="modifiedAt" ColumnName="modifiedAt" />
+                <ScalarProperty Name="createAt" ColumnName="createAt" />
+                <ScalarProperty Name="end" ColumnName="end" />
+                <ScalarProperty Name="start" ColumnName="start" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="addresses">
+            <EntityTypeMapping TypeName="bhcsModel.address">
+              <MappingFragment StoreEntitySet="address">
+                <ScalarProperty Name="zip" ColumnName="zip" />
+                <ScalarProperty Name="updatedAt" ColumnName="updatedAt" />
+                <ScalarProperty Name="country" ColumnName="country" />
+                <ScalarProperty Name="state" ColumnName="state" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="address2" ColumnName="address2" />
+                <ScalarProperty Name="address1" ColumnName="address1" />
+                <ScalarProperty Name="memberId" ColumnName="memberId" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="bhclasses">
+            <EntityTypeMapping TypeName="bhcsModel.bhclass">
+              <MappingFragment StoreEntitySet="bhclass">
+                <ScalarProperty Name="deleted" ColumnName="deleted" />
+                <ScalarProperty Name="modifiedBy" ColumnName="modifiedBy" />
+                <ScalarProperty Name="modifiedAt" ColumnName="modifiedAt" />
+                <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+                <ScalarProperty Name="semester" ColumnName="semester" />
+                <ScalarProperty Name="courseId" ColumnName="courseId" />
+                <ScalarProperty Name="fee" ColumnName="fee" />
+                <ScalarProperty Name="classroomId" ColumnName="classroomId" />
+                <ScalarProperty Name="teacherId" ColumnName="teacherId" />
+                <ScalarProperty Name="timeslotId" ColumnName="timeslotId" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="transactiondetails">
+            <EntityTypeMapping TypeName="bhcsModel.transactiondetail">
+              <MappingFragment StoreEntitySet="transactiondetail">
+                <ScalarProperty Name="updatedBy" ColumnName="updatedBy" />
+                <ScalarProperty Name="updatedAt" ColumnName="updatedAt" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="transactionType" ColumnName="transactionType" />
+                <ScalarProperty Name="ItemId" ColumnName="ItemId" />
+                <ScalarProperty Name="transactionId" ColumnName="transactionId" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="class_students">
+            <EntityTypeMapping TypeName="bhcsModel.class_student">
+              <MappingFragment StoreEntitySet="class_student">
+                <ScalarProperty Name="modifiedBy" ColumnName="modifiedBy" />
+                <ScalarProperty Name="modifiedAt" ColumnName="modifiedAt" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+                <ScalarProperty Name="studentId" ColumnName="studentId" />
+                <ScalarProperty Name="classId" ColumnName="classId" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="configs">
+            <EntityTypeMapping TypeName="bhcsModel.config">
+              <MappingFragment StoreEntitySet="config">
+                <ScalarProperty Name="modifiedAt" ColumnName="modifiedAt" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="value" ColumnName="value" />
+                <ScalarProperty Name="key" ColumnName="key" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="transactions">
+            <EntityTypeMapping TypeName="bhcsModel.transaction">
+              <MappingFragment StoreEntitySet="transaction">
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="updatedBy" ColumnName="updatedBy" />
+                <ScalarProperty Name="updatedAt" ColumnName="updatedAt" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="amount" ColumnName="amount" />
+                <ScalarProperty Name="memberId" ColumnName="memberId" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="balances">
+            <EntityTypeMapping TypeName="bhcsModel.balance">
+              <MappingFragment StoreEntitySet="balance">
+                <ScalarProperty Name="deleted" ColumnName="deleted" />
+                <ScalarProperty Name="updated_by" ColumnName="updated_by" />
+                <ScalarProperty Name="updated_at" ColumnName="updated_at" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="amount" ColumnName="amount" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="images">
+            <EntityTypeMapping TypeName="bhcsModel.image">
+              <MappingFragment StoreEntitySet="image">
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="file" ColumnName="file" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="items">
+            <EntityTypeMapping TypeName="bhcsModel.item">
+              <MappingFragment StoreEntitySet="item">
+                <ScalarProperty Name="updatedAt" ColumnName="updatedAt" />
+                <ScalarProperty Name="updatedBy" ColumnName="updatedBy" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="ownerId" ColumnName="ownerId" />
+                <ScalarProperty Name="imageId" ColumnName="imageId" />
+                <ScalarProperty Name="desc" ColumnName="desc" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="item_sharing">
+            <EntityTypeMapping TypeName="bhcsModel.item_sharing">
+              <MappingFragment StoreEntitySet="item_sharing">
+                <ScalarProperty Name="returnDate" ColumnName="returnDate" />
+                <ScalarProperty Name="borrowDate" ColumnName="borrowDate" />
+                <ScalarProperty Name="updatedAt" ColumnName="updatedAt" />
+                <ScalarProperty Name="updatedBy" ColumnName="updatedBy" />
+                <ScalarProperty Name="borrowerId" ColumnName="borrowerId" />
+                <ScalarProperty Name="itemId" ColumnName="itemId" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

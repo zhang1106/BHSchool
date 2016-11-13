@@ -1,0 +1,86 @@
+﻿.navbar-inverse .navbar-nav > .open > a:focus .caret {
+  border-top-color: #ffffff;
+  border-bottom-color: #ffffff;
+}
+@media (max-width: 767px)
+.navbar-inverse .navbar-nav .open .dropdown-menu > li > a {
+    color: red;
+}
+/*customize nav bar*/
+/* Prevent word-wrap  */
+.navbar .nav li {
+white-space: nowrap; 
+}@media (min-width: 1220px) {
+  body {
+    padding-top: 0px;
+  }
+}
+
+.navbar-inverse {
+  background-color: #0094ff;
+  border-color: #0094ff;
+ }
+
+.navbar-inverse .navbar-nav > li > a {
+  color: #ffffff;
+}
+
+.navbar-inverse .navbar-text {
+  color: #ffd800;
+}
+
+.navbar-nav > li > a {
+  padding-top: 35px;
+  padding-bottom: 10px;
+  line-height: 20px;
+}
+
+.navbar-nav_second {
+ padding-top:15px;
+ background-color:darkkhaki
+}
+
+blockquote.pull-right {
+  padding-right: 15px;
+  padding-left: 10px;
+  border-left: 0;
+}
+
+body {
+    padding-top: 130px;
+    padding-bottom: 20px;
+}
+@media (min-width: 1360px) {
+  body {
+    padding-top: 70px;
+  }
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.container {
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+  max-width:95%;
+   
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}

@@ -1,0 +1,24 @@
+﻿<div class="container">
+    <p><h4>注册步骤 Registration Steps</h4></p>
+    <ul sstyle="decimal">
+        <li>
+            1)@Html.ActionLink("建立LOGIN, Set up Login", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })
+        </li>
+        <li>
+            2)@Html.ActionLink("登记家庭信息, Register Contact Information", "Create", "familyAcct", routeValues: null, htmlAttributes: new { id = "registerLink" })
+        </li>
+        <li>
+            3)@Html.ActionLink("添加学生, Register Student", "CreateStudent", "class_student", routeValues: null, htmlAttributes: new { id = "registerLink" })
+        </li>
+        <li>
+            4)@Html.ActionLink("选课, Choose Class", "Create", "class_student", routeValues: null, htmlAttributes: new { id = "registerLink" })
+        </li>
+        <li>
+            5) @Html.ActionLink("打印选课单, Print Registration List", "Print", "class_student", routeValues: null, htmlAttributes: new { id = "registerLink" })
+            ，和支票(Pay to BH Huaxia) 一起寄到. (Send the print copy of the registration list with a check payable to BH Huaxia to:)
+            <address>
+                364 Springfield Ave #539, Berkeley Heights, NJ 07922
+            </address>
+        </li>
+    </ul>
+</div>

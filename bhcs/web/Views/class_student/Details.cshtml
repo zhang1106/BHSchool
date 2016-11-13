@@ -1,0 +1,50 @@
+﻿@model data.class_student
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>class_student</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.createdAt)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.createdAt)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.status)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.modifiedAt)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.modifiedAt)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.modifiedBy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.modifiedBy)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Back to List", "Index") |
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ })
+</p>

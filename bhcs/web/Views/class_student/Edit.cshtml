@@ -1,0 +1,73 @@
+﻿@model web.Models.ClassStudent
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.id)
+    <div class="form-horizontal">
+        <h4>修改注册</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.studentId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(m => m.studentId, Model.StudentList, htmlAttributes: new { @class = "control-dropdown col-md-2" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.classId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(m => m.classId, Model.ClassList, htmlAttributes: new { @class = "control-dropdown col-md-2" })
+                <details id="classInfo" open></details>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+<script type="text/javascript">
+       $(document).ready(function () {
+
+           SetCourseInfo();
+
+           $('#classId').change(function () {
+               SetCourseInfo();
+           })
+
+           function SetCourseInfo() {
+               $.ajax({
+                   url: '@Url.Action("GetClass", "class_student")',
+                   type: 'POST',
+                   data: { id: $('#classId').val() },
+                   success: function (result) {
+                       //alert(result.id);
+                       $('#classInfo').text(" semester:" + result.Semester + " fee:" + result.Fee + " time:" + result.Time + result.Warning);
+                   },
+                   error: function () {
+                       alert("error");
+                   }
+               });
+               return false;
+           }
+
+       })
+</script>
+}

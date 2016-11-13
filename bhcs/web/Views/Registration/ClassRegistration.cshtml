@@ -1,0 +1,16 @@
+﻿@{
+    ViewBag.Title = "Create 选课";
+}
+
+<h2>Choose Class 选课</h2>
+@using (Html.BeginForm("ClassRegistration", "Registration", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.Partial("~/Views/Shared/_ClassRegistration.cshtml")
+}
+
+<p>
+    <h2>
+        @Html.ActionLink("Back to List", "Index")
+    </h2>
+</p>
+

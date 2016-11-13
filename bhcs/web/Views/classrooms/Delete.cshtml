@@ -1,0 +1,80 @@
+﻿@model data.classroom
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>classroom</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.capacity)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.capacity)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.function)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.function)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.createAt)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.createAt)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.modifiedAt)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.modifiedAt)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.modifiedBy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.modifiedBy)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

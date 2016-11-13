@@ -1,0 +1,22 @@
+﻿@model web.Models.ClassStudentSummary
+
+@{
+    ViewBag.Title = "Index";
+    var closed = web.Service.SiteHelper.RegsitrationClosed;
+}
+<img class="hidden-sm hidden-xs hidden-md  img-responsive" alt="Blue Flower" src="~/images/middleschool.png">
+<h2>注册课程</h2>
+
+<p>
+    @Html.ActionLink("选课", "Create") | 
+    @Html.ActionLink("添加学生", "CreateStudent") | 
+    @Html.ActionLink("打印", "Print")
+</p>
+
+@if(closed)
+{
+    <p><h2 style="color:red">Registration Closed</h2></p>
+}
+
+@Html.Partial("~/Views/Shared/_RegistrationList.cshtml")
+

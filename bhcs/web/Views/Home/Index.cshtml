@@ -1,0 +1,28 @@
+﻿@model web.Models.MessageModel
+
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="row">
+    <div class="col-md-8">
+        <img class="hidden-sm hidden-xs hidden-md  img-responsive" alt="Blue Flower" src="~/images/middleschool.png">
+         @Html.Raw(Model.Current.body)
+    </div>
+    <blockquote class="pull-right col-md-4">
+        <h3 class="page-header">Latest Articles 最新消息</h3>
+        <ul class="latestnews">
+@foreach (var item in Model.Messages) {
+            <li itemtype="http://schema.org/Article" itemscope="">
+                <a href="/Home/ViewMessage/@item.id" itemprop="url">
+                    <span itemprop="name">
+                        @Html.DisplayFor(modelItem => item.title)
+                    </span>
+                </a>
+            </li>
+  }
+        </ul>
+         
+    </blockquote>
+</div>
+
