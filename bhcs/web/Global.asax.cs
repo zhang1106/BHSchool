@@ -19,18 +19,6 @@ namespace web
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-#if DEBUG
-#else
-            Task.Factory.StartNew(() =>
-            {
-                while(true)
-                {
-                    var s = web.Service.RegistrationSvc.GetWebPage("http://www.huaxiabh.org");
-                    Thread.Sleep(10000);
-                }
-            });
-#endif
-
         }
     }
 }
