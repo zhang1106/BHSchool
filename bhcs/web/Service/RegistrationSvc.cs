@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Net;
@@ -54,13 +53,13 @@ namespace web.Service
                     fClasses.Add(csm);
                 }
 
-                var fee = db.configs.Where(c => c.type == "fee" || (c.type == "discount" && c.key == user.email)).OrderBy(f => f.description).ToList();
-                if (classStudents.Any(c => c.Confirmed)) fee = new List<config>();
-                var summary = new ClassStudentSummary() { Classes = fClasses, Fee = fee, Address = address, Household = user };
-
-                db.Dispose();
-
-                return summary;
+                using (var confgDB=DataRepository<Config>.Create())
+                {
+                    var fee = confgDB.FindAll(c => c.type == "fee" || (c.type == "discount" && c.key == user.email)).OrderBy(f => f.description).ToList();
+                    if (classStudents.Any(c => c.Confirmed)) fee = new List<Config>();
+                    var summary = new ClassStudentSummary() { Classes = fClasses, Fee = fee, Address = address, Household = user };
+                    return summary;
+                }
             }
         }
 
@@ -111,8 +110,6 @@ namespace web.Service
                                   NumberofRegistration = subClass == null ? 0 : subClass.numberOfRegistered,
                                   Capacity = c.Capacity
                               }).ToList();
-                
-                db.Dispose();
                 return courses;
             }
         }

@@ -19,19 +19,6 @@
           <Property Name="country" Type="varchar" MaxLength="45" />
           <Property Name="updatedAt" Type="datetime" Precision="0" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
-        <EntityType Name="balance">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="email" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="amount" Type="decimal" Precision="20" Scale="2" />
-          <Property Name="type" Type="varchar" MaxLength="45" Nullable="false" />
-          <Property Name="description" Type="varchar" MaxLength="200" />
-          <Property Name="updated_at" Type="datetime" Precision="0" Nullable="false" />
-          <Property Name="updated_by" Type="varchar" MaxLength="45" Nullable="false" />
-          <Property Name="deleted" Type="bit" Nullable="false" />
-        </EntityType>
         <EntityType Name="bhclass">
           <Key>
             <PropertyRef Name="id" />
@@ -72,17 +59,6 @@
           <Property Name="createAt" Type="datetime" Precision="0" StoreGeneratedPattern="Identity" />
           <Property Name="modifiedAt" Type="datetime" Precision="0" StoreGeneratedPattern="Identity" />
           <Property Name="modifiedBy" Type="varchar" MaxLength="45" />
-        </EntityType>
-        <EntityType Name="config">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="type" Type="varchar" MaxLength="45" />
-          <Property Name="key" Type="varchar" MaxLength="45" />
-          <Property Name="value" Type="varchar" MaxLength="45" />
-          <Property Name="description" Type="varchar" MaxLength="200" />
-          <Property Name="modifiedAt" Type="datetime" Precision="0" />
         </EntityType>
         <EntityType Name="course">
           <Key>
@@ -199,11 +175,9 @@
         </EntityType>
         <EntityContainer Name="bhcsModelStoreContainer">
           <EntitySet Name="address" EntityType="Self.address" Schema="bhcs" store:Type="Tables" />
-          <EntitySet Name="balance" EntityType="Self.balance" Schema="bhcs" store:Type="Tables" />
           <EntitySet Name="bhclass" EntityType="Self.bhclass" Schema="bhcs" store:Type="Tables" />
           <EntitySet Name="class_student" EntityType="Self.class_student" Schema="bhcs" store:Type="Tables" />
           <EntitySet Name="classroom" EntityType="Self.classroom" Schema="bhcs" store:Type="Tables" />
-          <EntitySet Name="config" EntityType="Self.config" Schema="bhcs" store:Type="Tables" />
           <EntitySet Name="course" EntityType="Self.course" Schema="bhcs" store:Type="Tables" />
           <EntitySet Name="image" EntityType="Self.image" Schema="bhcs" store:Type="Tables" />
           <EntitySet Name="item" EntityType="Self.item" Schema="bhcs" store:Type="Tables" />
@@ -228,9 +202,7 @@
           <EntitySet Name="bhclasses" EntityType="bhcsModel.bhclass" />
           <EntitySet Name="transactiondetails" EntityType="bhcsModel.transactiondetail" />
           <EntitySet Name="class_students" EntityType="bhcsModel.class_student" />
-          <EntitySet Name="configs" EntityType="bhcsModel.config" />
           <EntitySet Name="transactions" EntityType="bhcsModel.transaction" />
-          <EntitySet Name="balances" EntityType="bhcsModel.balance" />
           <EntitySet Name="images" EntityType="bhcsModel.image" />
           <EntitySet Name="items" EntityType="bhcsModel.item" />
           <EntitySet Name="item_sharing" EntityType="bhcsModel.item_sharing" />
@@ -358,17 +330,6 @@
           <Property Name="modifiedAt" Type="DateTime" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="modifiedBy" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
         </EntityType>
-        <EntityType Name="config">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="type" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
-          <Property Name="key" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
-          <Property Name="value" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
-          <Property Name="description" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="modifiedAt" Type="DateTime" />
-        </EntityType>
         <EntityType Name="transaction">
           <Key>
             <PropertyRef Name="id" />
@@ -380,19 +341,6 @@
           <Property Name="updatedAt" Type="DateTime" Nullable="false" />
           <Property Name="updatedBy" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="status" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="balance">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="email" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="amount" Type="Decimal" />
-          <Property Name="type" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
-          <Property Name="description" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="updated_at" Type="DateTime" Nullable="false" />
-          <Property Name="updated_by" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
-          <Property Name="deleted" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="image">
           <Key>
@@ -566,18 +514,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="configs">
-            <EntityTypeMapping TypeName="bhcsModel.config">
-              <MappingFragment StoreEntitySet="config">
-                <ScalarProperty Name="modifiedAt" ColumnName="modifiedAt" />
-                <ScalarProperty Name="description" ColumnName="description" />
-                <ScalarProperty Name="value" ColumnName="value" />
-                <ScalarProperty Name="key" ColumnName="key" />
-                <ScalarProperty Name="type" ColumnName="type" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="transactions">
             <EntityTypeMapping TypeName="bhcsModel.transaction">
               <MappingFragment StoreEntitySet="transaction">
@@ -587,20 +523,6 @@
                 <ScalarProperty Name="description" ColumnName="description" />
                 <ScalarProperty Name="amount" ColumnName="amount" />
                 <ScalarProperty Name="memberId" ColumnName="memberId" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="balances">
-            <EntityTypeMapping TypeName="bhcsModel.balance">
-              <MappingFragment StoreEntitySet="balance">
-                <ScalarProperty Name="deleted" ColumnName="deleted" />
-                <ScalarProperty Name="updated_by" ColumnName="updated_by" />
-                <ScalarProperty Name="updated_at" ColumnName="updated_at" />
-                <ScalarProperty Name="description" ColumnName="description" />
-                <ScalarProperty Name="type" ColumnName="type" />
-                <ScalarProperty Name="amount" ColumnName="amount" />
-                <ScalarProperty Name="email" ColumnName="email" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>

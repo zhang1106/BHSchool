@@ -13,7 +13,7 @@ namespace web.Models {
 
         public IList<ClassStudentModel> Classes { get; set; }
 
-        public IList<config> Fee { get; set; }
+        public IList<Config> Fee { get; set; }
 
         public decimal? TotalTuition
         {

@@ -14,12 +14,12 @@ namespace web.Controllers
     [Authorize(Roles = "Admin")]
     public class configsController : Controller
     {
-        private bhcsEntities db = new bhcsEntities();
+        private DataRepository<Config> db = DataRepository<Config>.Create();
 
         // GET: configs
         public ActionResult Index()
         {
-            return View(db.configs.ToList());
+            return View(db.FindAll());
         }
 
         // GET: configs/Details/5
@@ -29,7 +29,7 @@ namespace web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            config config = db.configs.Find(id);
+            var config = db.Find(c=>c.id==id);
             if (config == null)
             {
                 return HttpNotFound();
@@ -49,12 +49,11 @@ namespace web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "type,key,value,description")] config config)
+        public ActionResult Create([Bind(Include = "type,key,value,description")] Config config)
         {
             if (ModelState.IsValid)
             {
-                db.configs.Add(config);
-                db.SaveChanges();
+                db.Update(config);
                 return RedirectToAction("Index");
             }
 
@@ -68,7 +67,7 @@ namespace web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            config config = db.configs.Find(id);
+            var config = db.Find(c=>c.id==id);
             if (config == null)
             {
                 return HttpNotFound();
@@ -81,12 +80,11 @@ namespace web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,type,key,value,description")] config config)
+        public ActionResult Edit([Bind(Include = "id,type,key,value,description")] Config config)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(config).State = EntityState.Modified;
-                db.SaveChanges();
+                db.Update(config);
                 return RedirectToAction("Index");
             }
             return View(config);
@@ -99,7 +97,7 @@ namespace web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            config config = db.configs.Find(id);
+            var config = db.Find(c=>c.id==id);
             if (config == null)
             {
                 return HttpNotFound();
@@ -112,9 +110,8 @@ namespace web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(long id)
         {
-            config config = db.configs.Find(id);
-            db.configs.Remove(config);
-            db.SaveChanges();
+            var config = db.Find(c=>c.id==id);
+            db.Delete(config);
             return RedirectToAction("Index");
         }
 
@@ -122,7 +119,7 @@ namespace web.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                db.Connection.Close();
             }
             base.Dispose(disposing);
         }

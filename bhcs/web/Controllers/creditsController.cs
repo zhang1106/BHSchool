@@ -1,25 +1,22 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using data;
 
 namespace web.Controllers
 {
     [Authorize(Roles = "Admin")]
-    public class balancesController : Controller
+    public class creditsController : Controller
     {
-        private bhcsEntities db = new bhcsEntities();
+        private DataRepository<Credit> db = DataRepository<Credit>.Create();
 
         // GET: balances
         [Authorize(Roles = "Admin")]
         public ActionResult Index()
         {
-            return View(db.balances.ToList());
+            return View(db.FindAll());
         }
 
         // GET: balances/Details/5
@@ -30,12 +27,12 @@ namespace web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            balance balance = db.balances.Find(id);
-            if (balance == null)
+            Credit credit = db.Find(c=>c.id==id);
+            if (credit == null)
             {
                 return HttpNotFound();
             }
-            return View(balance);
+            return View(credit);
         }
 
         // GET: balances/Create
@@ -50,18 +47,16 @@ namespace web.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
-        public ActionResult Create([Bind(Include = "id,email,amount,type,description")] balance balance)
+        public ActionResult Create([Bind(Include = "id,email,amount,type,description")] Credit credit)
         {
             if (ModelState.IsValid)
             {
-                balance.updated_by = web.Service.SiteHelper.UserName;
-                balance.updated_at = DateTime.Now;
-                db.balances.Add(balance);
-                db.SaveChanges();
+                credit.updatedBy = web.Service.SiteHelper.UserName;
+                credit.updatedAt = DateTime.Now;
+             
                 return RedirectToAction("Index");
             }
-
-            return View(balance);
+            return View(credit);
         }
 
         // GET: balances/Edit/5
@@ -72,12 +67,12 @@ namespace web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            balance balance = db.balances.Find(id);
-            if (balance == null)
+            Credit credit = db.Find(c=>c.id==id);
+            if (credit == null)
             {
                 return HttpNotFound();
             }
-            return View(balance);
+            return View(credit);
         }
 
         // POST: balances/Edit/5
@@ -86,17 +81,16 @@ namespace web.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
-        public ActionResult Edit([Bind(Include = "id,email,amount,type,description")] balance balance)
+        public ActionResult Edit([Bind(Include = "id,email,amount,type,description")] Credit credit)
         {
             if (ModelState.IsValid)
             {
-                balance.updated_at = DateTime.Now;
-                balance.updated_by = web.Service.SiteHelper.UserName;
-                db.Entry(balance).State = EntityState.Modified;
-                db.SaveChanges();
+                credit.updatedAt = DateTime.Now;
+                credit.updatedBy = web.Service.SiteHelper.UserName;
+                db.Update(credit);
                 return RedirectToAction("Index");
             }
-            return View(balance);
+            return View(credit);
         }
 
         // GET: balances/Delete/5
@@ -107,12 +101,12 @@ namespace web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            balance balance = db.balances.Find(id);
-            if (balance == null)
+            Credit credit = db.Find(c=>c.id==id);
+            if (credit == null)
             {
                 return HttpNotFound();
             }
-            return View(balance);
+            return View(credit);
         }
 
         // POST: balances/Delete/5
@@ -121,12 +115,11 @@ namespace web.Controllers
         [Authorize(Roles = "Admin")]
         public ActionResult DeleteConfirmed(int id)
         {
-            balance balance = db.balances.Find(id);
-            balance.deleted = true;
-            balance.updated_by = web.Service.SiteHelper.UserName;
-            balance.updated_at = DateTime.Now;
-            db.Entry(balance).State = EntityState.Modified;
-            db.SaveChanges();
+            Credit credit = db.Find(c=>c.id==id);
+            credit.deleted = true;
+            credit.updatedBy = web.Service.SiteHelper.UserName;
+            credit.updatedAt = DateTime.Now;
+            db.Delete(credit);
             return RedirectToAction("Index");
         }
 
@@ -134,7 +127,7 @@ namespace web.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                db.Connection.Dispose();
             }
             base.Dispose(disposing);
         }

@@ -30,6 +30,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Dapper, Version=1.50.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Dapper.1.50.2\lib\net451\Dapper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
       <Private>True</Private>
@@ -38,8 +42,17 @@
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="MicroOrm.Dapper.Repositories, Version=1.5.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MicroOrm.Dapper.Repositories.1.5.0\lib\net45\MicroOrm.Dapper.Repositories.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MySql.Data, Version=6.9.9.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <HintPath>..\packages\MySql.Data.6.9.9\lib\net45\MySql.Data.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
@@ -55,9 +68,8 @@
       <DependentUpon>bhcs.tt</DependentUpon>
     </Compile>
     <Compile Include="AddressAnno.cs" />
-    <Compile Include="balance.cs">
-      <DependentUpon>bhcs.tt</DependentUpon>
-    </Compile>
+    <Compile Include="Config.cs" />
+    <Compile Include="Credit.cs" />
     <Compile Include="bhclass.cs">
       <DependentUpon>bhcs.tt</DependentUpon>
     </Compile>
@@ -82,13 +94,11 @@
     <Compile Include="class_student.cs">
       <DependentUpon>bhcs.tt</DependentUpon>
     </Compile>
-    <Compile Include="config.cs">
-      <DependentUpon>bhcs.tt</DependentUpon>
-    </Compile>
     <Compile Include="course.cs">
       <DependentUpon>bhcs.tt</DependentUpon>
     </Compile>
     <Compile Include="CourseAnno.cs" />
+    <Compile Include="DataRepository.cs" />
     <Compile Include="DBHelper.cs" />
     <Compile Include="image.cs">
       <DependentUpon>bhcs.tt</DependentUpon>

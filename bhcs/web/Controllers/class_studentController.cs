@@ -52,11 +52,11 @@ namespace web.Controllers
             return new JsonResult() { Data = classInfo };
         }
 
-        public ActionResult Balance()
-        {
-            var balances = db.balances.Where(b => b.email == SiteHelper.UserName).Select(b=>b);
-            return View(balances);
-        }
+        //public ActionResult Balance()
+        //{
+        //    //var balances = db.balances.Where(b => b.email == SiteHelper.UserName).Select(b=>b);
+        //    return View(balances);
+        //}
 
         public ActionResult Print()
         {
