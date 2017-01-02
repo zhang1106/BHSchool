@@ -182,8 +182,8 @@ namespace web.Controllers
             }
 
             //get confirm body
-            var url = HttpContext.Request.UrlReferrer.AbsoluteUri; // ("details", "email");
-            var emailUrl = url.Replace("Details", "Email");
+            var url = HttpContext.Request.Url.OriginalString; // ("details", "email");
+            var emailUrl = url.Replace("Confirm", "Details");
             var body = web.Service.RegistrationSvc.GetWebPage(emailUrl);
 
             var summary = RegistrationSvc.GetClassStudentSummary(id.Value);
