@@ -1,6 +1,24 @@
 ﻿@model IEnumerable<web.Models.RegistrationModel>
-<h2>注册管理</h2>
- 
+ <div>
+@using (Html.BeginForm("Search", "Registration", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+     <table width="100%"> 
+         <tr>
+             <td>
+                 <h2>注册管理</h2> 
+             </td>
+             <td valign="middle" align="right">
+                 @Html.TextBox("searchfor")
+             </td>
+             <td>
+                 <input type="submit" Search" id="searchfor" class="btn btn-primary" />
+                 @Html.ActionLink("Export", "Export", null, new { @class = "btn btn-primary" })
+             </td>
+         </tr>
+     </table>
+}  
+</div>
 <table class="table">
     <tr>
         <th>
@@ -52,4 +70,4 @@
 
 </table>
 
-@Html.ActionLink("Export", "Export")
+

@@ -24,6 +24,15 @@ namespace web.Controllers
             return View(registrations);
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Search(FormCollection collection)
+        {
+            var searchfor = collection["searchfor"];
+            var registrations = GetRegistrations().Where(r => r.Household.ToLower().Contains(searchfor) || r.Email.ToLower().Contains(searchfor));
+            return View("Index",registrations);
+        }
+
         protected IList<RegistrationModel> GetRegistrations()
         {
             var households = db.members.Select(m => new { id = m.id, householdId = m.householdId == null ? m.id : m.householdId });
