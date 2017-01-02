@@ -43,7 +43,8 @@ namespace web.Service
                         Course = cs.Course,
                         id = cs.id,
                         TimeSlot = cs.TimeSlot,
-                        Status = cs.Status
+                        Status = cs.Status,
+                        ModifiedAt = cs.ModifiedAt.Value
                     };
                     
                     if(c != null && registered.Count() >= c.Capacity)
@@ -53,13 +54,38 @@ namespace web.Service
                     fClasses.Add(csm);
                 }
 
+                var summary = new ClassStudentSummary() { Classes = fClasses, Address = address, Household = user };
+
                 using (var confgDB=DataRepository<Config>.Create())
                 {
-                    var fee = confgDB.FindAll(c => c.type == "fee" || (c.type == "discount" && c.key == user.email)).OrderBy(f => f.description).ToList();
-                    if (classStudents.Any(c => c.Confirmed)) fee = new List<Config>();
-                    var summary = new ClassStudentSummary() { Classes = fClasses, Fee = fee, Address = address, Household = user };
-                    return summary;
+                    var fee = confgDB.FindAll(c => 
+                    c.type == "fee" 
+                    && c.startDt <= System.DateTime.Now && c.endDt >= System.DateTime.Now
+                    ).OrderBy(f => f.description).ToList();
+                    //remove management fee if check is submitted ahead of start date
+                    var acctFee = fee.FirstOrDefault(f => f.name == "administration");
+                    if(acctFee!=null && fClasses.Any(c=>c.Confirmed && c.ModifiedAt < acctFee.startDt ))
+                    {
+                        fee.Remove(acctFee);
+                    }
+                    //remove regisration change fee
+                    var regFee = fee.FirstOrDefault(f => f.name == "course change");
+                    if(regFee !=null &&  regFee.startDt > System.DateTime.Now)
+                    {
+                        fee.Remove(regFee);
+                    }
+
+                    summary.Fee = fee;
                 }
+
+                using (var creditDB = DataRepository<Credit>.Create())
+                {
+                    var credits = creditDB.FindAll(c => c.email == user.email);
+                    summary.Checks = credits.Where(c => c.type == "check").ToList();
+                    summary.Discounts = credits.Where(c => c.type == "discount").ToList();
+                }
+
+                return summary;
             }
         }
 

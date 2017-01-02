@@ -14,11 +14,11 @@ namespace data
         [Identity]
         public int id { get; set; }
         public string type { get; set; }
-        public string key { get; set; }
+        public string name { get; set; }
+        public DateTime startDt { get; set; }
+        public DateTime endDt { get; set; }
+        public DateTime modifiedAt { get; set; }
         public string value { get; set; }
         public string description { get; set; }
-        public DateTime StartDt { get; set; }
-        public DateTime EndDt { get; set; }
-        public DateTime modifiedAt { get; set; }
     }
 }

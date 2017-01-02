@@ -47,13 +47,13 @@ namespace web.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
-        public ActionResult Create([Bind(Include = "id,email,amount,type,description")] Credit credit)
+        public ActionResult Create([Bind(Include = "id,email,amount,type,description,validStart,validEnd")] Credit credit)
         {
             if (ModelState.IsValid)
             {
                 credit.updatedBy = web.Service.SiteHelper.UserName;
                 credit.updatedAt = DateTime.Now;
-             
+                db.Insert(credit);
                 return RedirectToAction("Index");
             }
             return View(credit);
@@ -81,7 +81,7 @@ namespace web.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
-        public ActionResult Edit([Bind(Include = "id,email,amount,type,description")] Credit credit)
+        public ActionResult Edit([Bind(Include = "id,email,amount,type,description,validStart,validEnd")] Credit credit)
         {
             if (ModelState.IsValid)
             {

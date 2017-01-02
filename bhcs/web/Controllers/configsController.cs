@@ -49,11 +49,11 @@ namespace web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "type,key,value,description")] Config config)
+        public ActionResult Create([Bind(Include = "type,name,value,description,startDt,endDt")] Config config)
         {
             if (ModelState.IsValid)
             {
-                db.Update(config);
+                db.Insert(config);
                 return RedirectToAction("Index");
             }
 
@@ -80,10 +80,11 @@ namespace web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,type,key,value,description")] Config config)
+        public ActionResult Edit([Bind(Include = "id,type,name,value,description,startDt,endDt")] Config config)
         {
             if (ModelState.IsValid)
             {
+                config.modifiedAt = DateTime.Now;
                 db.Update(config);
                 return RedirectToAction("Index");
             }

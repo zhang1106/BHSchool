@@ -28,6 +28,12 @@
         <th>
             @Html.DisplayNameFor(model => model.deleted)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.validStart)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.validEnd)
+        </th>
         @if(User.IsInRole("Admin"))
         {
         <th>
@@ -56,6 +62,12 @@
         </td>
         <td>
             @item.deleted
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.validStart)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.validEnd)
         </td>
         @if(User.IsInRole("Admin"))
         {
