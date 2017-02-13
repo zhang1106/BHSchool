@@ -1,0 +1,178 @@
+﻿
+@model web.Models.ClassModel
+
+<div>
+    <h2>Registration Details</h2>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Semester)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Semester)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Course)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Course)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Classroom)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Classroom)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Teacher)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Teacher)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Time)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Time)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Capacity)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Capacity)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NumberofRegistration)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NumberofRegistration)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NumberofConfirmed)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NumberofConfirmed)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Fee)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Fee)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Warning)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Warning)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    <h2>Confirmed Students</h2>
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Confirmed[0].Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Confirmed[0].Gender)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Confirmed[0].Custodian)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Confirmed[0].Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Confirmed[0].Phone)
+        </th>
+    </tr>
+
+    @foreach (var item in Model.Confirmed)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Gender)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Custodian)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Phone)
+            </td>
+        </tr>
+    }
+</table>
+
+@Html.ActionLink("Export Students", "ExportStudents", new { id = Model.id })
+
+<p>
+    <h2>Unconfirmed Students</h2>
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.UnConfirmed[0].Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UnConfirmed[0].Gender)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UnConfirmed[0].Custodian)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UnConfirmed[0].Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UnConfirmed[0].Phone)
+        </th>
+    </tr>
+
+    @foreach (var item in Model.UnConfirmed)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Gender)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Custodian)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Phone)
+            </td>
+        </tr>
+    }
+</table>

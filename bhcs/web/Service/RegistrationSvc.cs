@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections;
 using System.Linq;
 using System.Text;
 using System.Net;
@@ -114,7 +115,7 @@ namespace web.Service
                               join cr in db.classrooms on c.classroomId equals cr.id
                               join tl in db.timeslots on c.timeslotId equals tl.id
                               where c.deleted.Value == false 
-                              select new { id = c.id, Capacity = cr.capacity.Value, Classroom = cr.name, Course = cs.name,
+                              select new { id = c.id, Capacity = cr.capacity.Value, Classroom = cr.name, Course = cs.name, teacherId=c.teacherId,
                                   Time = tl.start + "-" + tl.end, Semester=c.semester, Fee=c.fee };
                 var registered = from cs in db.class_students
                                  group cs by cs.classId into result
@@ -134,7 +135,8 @@ namespace web.Service
                                   Fee = c.Fee,
                                   NumberofConfirmed = subClass == null? 0:subClass.numberOfConfirmed,
                                   NumberofRegistration = subClass == null ? 0 : subClass.numberOfRegistered,
-                                  Capacity = c.Capacity
+                                  Capacity = c.Capacity,
+                                  TeacherId = c.teacherId
                               }).ToList();
                 return courses;
             }
@@ -186,6 +188,18 @@ namespace web.Service
             }
 
             return thisClass;
+        }
+
+        public static MyClass GetMyClasses(int userid, int? classId)
+        {
+            var myClass = new MyClass();
+            
+            myClass.MyClasses = GetClasses().Where(c => c.TeacherId == userid).ToList();
+            var defaultClass = classId==null?myClass.MyClasses.First(): myClass.MyClasses.FirstOrDefault(c=>c.id==classId);
+            myClass.classId = defaultClass.id;
+            myClass.ClassDetail = GetClassDetails(myClass.classId);
+
+            return myClass;
         }
 
         public static ClassStudent GetStudentClass(int id)

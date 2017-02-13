@@ -58,9 +58,28 @@ namespace web.Controllers
 
             return registration.ToList();
         }
+
+        public ActionResult MyClass(int? id)
+        {
+            var email = User.Identity.GetUserName();
+            var user = db.members.FirstOrDefault(m => m.email == email);
+            var userid = user.id;
+            var myClass = RegistrationSvc.GetMyClasses(userid, id);
+            return View(myClass);
+        }
+
+        [HttpPost]
+        public ActionResult LoadMyClass(MyClass model)
+        {
+            var email = User.Identity.GetUserName();
+            var user = db.members.FirstOrDefault(m => m.email == email);
+            var userid = user.id;
+            var myClass = RegistrationSvc.GetMyClasses(userid, model.classId);
+            return View("MyClass", myClass);
+        }
+
         public ActionResult Summary()
         {
-
             var classes = from cs in db.class_students
                           join c in db.bhclasses on cs.classId equals c.id
                           join cr in db.courses on c.courseId equals cr.id
@@ -133,7 +152,8 @@ namespace web.Controllers
         // GET: Registration/Create
         public ActionResult Create(int id)                                                              
         {
-           var classStudent = RegistrationSvc.GetStudentClass(id);
+            var user = db.members.FirstOrDefault(m => m.email == User.Identity.GetUserName());
+            var classStudent = RegistrationSvc.GetStudentClass(user.id);
 
             return View("ClassRegistration",classStudent);
         }

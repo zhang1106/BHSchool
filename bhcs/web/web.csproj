@@ -240,6 +240,7 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\MessageModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\MyClass.cs" />
     <Compile Include="Models\RegistrationModel.cs" />
     <Compile Include="Models\RegistrationReport.cs" />
     <Compile Include="Models\TimeSlotModel.cs" />
@@ -428,6 +429,8 @@
     <Content Include="Views\items\Index.cshtml" />
     <Content Include="Views\Shared\_ClassRegistration.cshtml" />
     <Content Include="Views\Registration\ClassRegistration.cshtml" />
+    <Content Include="Views\Registration\MyClass.cshtml" />
+    <Content Include="Views\Shared\_ClassDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
