@@ -28,6 +28,7 @@ namespace web.Service
                                     join cl in db.bhclasses on cs.classId equals cl.id
                                     join c in db.courses on cl.courseId equals c.id
                                     join t in db.timeslots on cl.timeslotId equals t.id
+                                    where cl.deleted == false 
                                     select new 
                                     { Student = s, Class = cl, Course = c, id = cs.id, TimeSlot = t, Status=cs.status, Confirmed= 
                                       cs.status==RegistrationStatus.Confirmed.ToString(), ModifiedAt=cs.modifiedAt}).ToList();
