@@ -24,6 +24,15 @@ namespace web.Controllers
             return View(registrations);
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Search(FormCollection collection)
+        {
+            var searchfor = collection["searchfor"];
+            var registrations = GetRegistrations().Where(r => r.Household.ToLower().Contains(searchfor) || r.Email.ToLower().Contains(searchfor));
+            return View("Index",registrations);
+        }
+
         protected IList<RegistrationModel> GetRegistrations()
         {
             var households = db.members.Select(m => new { id = m.id, householdId = m.householdId == null ? m.id : m.householdId });
@@ -49,9 +58,28 @@ namespace web.Controllers
 
             return registration.ToList();
         }
+
+        public ActionResult MyClass(int? id)
+        {
+            var email = User.Identity.GetUserName();
+            var user = db.members.FirstOrDefault(m => m.email == email);
+            var userid = user.id;
+            var myClass = RegistrationSvc.GetMyClasses(userid, id);
+            return View(myClass);
+        }
+
+        [HttpPost]
+        public ActionResult LoadMyClass(MyClass model)
+        {
+            var email = User.Identity.GetUserName();
+            var user = db.members.FirstOrDefault(m => m.email == email);
+            var userid = user.id;
+            var myClass = RegistrationSvc.GetMyClasses(userid, model.classId);
+            return View("MyClass", myClass);
+        }
+
         public ActionResult Summary()
         {
-
             var classes = from cs in db.class_students
                           join c in db.bhclasses on cs.classId equals c.id
                           join cr in db.courses on c.courseId equals cr.id
@@ -124,7 +152,8 @@ namespace web.Controllers
         // GET: Registration/Create
         public ActionResult Create(int id)                                                              
         {
-           var classStudent = RegistrationSvc.GetStudentClass(id);
+            var user = db.members.FirstOrDefault(m => m.email == User.Identity.GetUserName());
+            var classStudent = RegistrationSvc.GetStudentClass(user.id);
 
             return View("ClassRegistration",classStudent);
         }
@@ -173,8 +202,8 @@ namespace web.Controllers
             }
 
             //get confirm body
-            var url = HttpContext.Request.UrlReferrer.AbsoluteUri; // ("details", "email");
-            var emailUrl = url.Replace("Details", "Email");
+            var url = HttpContext.Request.Url.OriginalString; // ("details", "email");
+            var emailUrl = url.Replace("Confirm", "Details");
             var body = web.Service.RegistrationSvc.GetWebPage(emailUrl);
 
             var summary = RegistrationSvc.GetClassStudentSummary(id.Value);

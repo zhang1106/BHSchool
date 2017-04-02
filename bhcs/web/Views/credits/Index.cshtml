@@ -1,4 +1,4 @@
-﻿@model IEnumerable<data.balance>
+﻿@model IEnumerable<data.Credit>
 @using Microsoft.AspNet.Identity
 
 @{
@@ -28,13 +28,19 @@
         <th>
             @Html.DisplayNameFor(model => model.deleted)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.validStart)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.validEnd)
+        </th>
         @if(User.IsInRole("Admin"))
         {
         <th>
-            @Html.DisplayNameFor(model => model.updated_at)
+            @Html.DisplayNameFor(model => model.updatedAt)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.updated_by)
+            @Html.DisplayNameFor(model => model.updatedBy)
         </th>
         <th></th>
         }
@@ -57,13 +63,19 @@
         <td>
             @item.deleted
         </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.validStart)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.validEnd)
+        </td>
         @if(User.IsInRole("Admin"))
         {
         <td>
-            @Html.DisplayFor(modelItem => item.updated_at)
+            @Html.DisplayFor(modelItem => item.updatedAt)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.updated_by)
+            @Html.DisplayFor(modelItem => item.updatedBy)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.id }) |

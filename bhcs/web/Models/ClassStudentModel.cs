@@ -54,6 +54,9 @@ namespace web.Models
             }
         }
 
+        public DateTime ModifiedAt
+        { get; set; }
+
         public string Warning { set; get; }
 
         public int id { get; set; }

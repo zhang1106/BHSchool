@@ -1,12 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Configuration;
 
 namespace data
 {
-    class DBHelper
+    public static class DBHelper
     {
+        public static string ConnectionString
+        {
+            get
+            {
+                var connectionStr = ConfigurationManager.ConnectionStrings["BHCSConnection"].ConnectionString;
+                return connectionStr;
+            }
+        }
     }
 }

@@ -34,9 +34,7 @@ namespace data
         public DbSet<bhclass> bhclasses { get; set; }
         public DbSet<transactiondetail> transactiondetails { get; set; }
         public DbSet<class_student> class_students { get; set; }
-        public DbSet<config> configs { get; set; }
         public DbSet<transaction> transactions { get; set; }
-        public DbSet<balance> balances { get; set; }
         public DbSet<image> images { get; set; }
         public DbSet<item> items { get; set; }
         public DbSet<item_sharing> item_sharing { get; set; }
