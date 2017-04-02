@@ -6,21 +6,23 @@ using data;
 namespace web.Models { 
     public class ClassStudentSummary
     {
-  
         public  member Household { get; set; }
 
         public address Address { get; set; }
 
         public IList<ClassStudentModel> Classes { get; set; }
 
-        public IList<config> Fee { get; set; }
+        public IList<Config> Fee { get; set; }
+
+        public IList<Credit> Checks { get; set; }
+
+        public IList<Credit> Discounts { get; set; }
 
         public decimal? TotalTuition
         {
             get
             {
-                return Classes.Where(c=>c.Confirmed != true).
-                    Sum(c => c.Status==RegistrationStatus.CancelActive.ToString()?(-1)*c.Tuition : c.Tuition);
+                return Classes.Where(c=>IsActive(c)).Sum(c => c.Tuition);
             }
         }
 
@@ -28,8 +30,23 @@ namespace web.Models {
         {
             get
             {
-               return Classes.Where(c => c.Confirmed != true && 
-               c.Status != RegistrationStatus.CancelActive.ToString() ).Sum(c => c.TextbookFee);
+               return Classes.Where(c => IsActive(c)).Sum(c => c.TextbookFee);
+            }
+        }
+
+        public decimal? TotalPayments
+        {
+            get
+            {
+                return Checks.Sum(c => c.amount);
+            }
+        }
+
+        public decimal? TotalDiscounts
+        {
+            get
+            {
+                return Discounts.Sum(c =>c.amount);
             }
         }
 
@@ -48,8 +65,16 @@ namespace web.Models {
         {
             get
             {
-                return TotalTuition + TotalTextbookFee +  TotalFee;
+                return TotalTuition + TotalTextbookFee +  TotalFee + TotalPayments + TotalDiscounts;
             }
+        }
+
+        private bool IsActive(ClassStudentModel registration )
+        {
+            var active = registration.Status != RegistrationStatus.CancelConfirmed.ToString() &&
+               registration.Status != RegistrationStatus.CancelActive.ToString();
+
+            return active;
         }
     }
 }

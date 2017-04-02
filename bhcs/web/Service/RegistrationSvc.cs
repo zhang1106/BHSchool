@@ -1,5 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Collections;
 using System.Linq;
 using System.Text;
 using System.Net;
@@ -28,6 +28,7 @@ namespace web.Service
                                     join cl in db.bhclasses on cs.classId equals cl.id
                                     join c in db.courses on cl.courseId equals c.id
                                     join t in db.timeslots on cl.timeslotId equals t.id
+                                    where cl.deleted == false 
                                     select new 
                                     { Student = s, Class = cl, Course = c, id = cs.id, TimeSlot = t, Status=cs.status, Confirmed= 
                                       cs.status==RegistrationStatus.Confirmed.ToString(), ModifiedAt=cs.modifiedAt}).ToList();
@@ -44,7 +45,8 @@ namespace web.Service
                         Course = cs.Course,
                         id = cs.id,
                         TimeSlot = cs.TimeSlot,
-                        Status = cs.Status
+                        Status = cs.Status,
+                        ModifiedAt = cs.ModifiedAt.Value
                     };
                     
                     if(c != null && registered.Count() >= c.Capacity)
@@ -54,11 +56,36 @@ namespace web.Service
                     fClasses.Add(csm);
                 }
 
-                var fee = db.configs.Where(c => c.type == "fee" || (c.type == "discount" && c.key == user.email)).OrderBy(f => f.description).ToList();
-                if (classStudents.Any(c => c.Confirmed)) fee = new List<config>();
-                var summary = new ClassStudentSummary() { Classes = fClasses, Fee = fee, Address = address, Household = user };
+                var summary = new ClassStudentSummary() { Classes = fClasses, Address = address, Household = user };
 
-                db.Dispose();
+                using (var confgDB=DataRepository<Config>.Create())
+                {
+                    var fee = confgDB.FindAll(c => 
+                    c.type == "fee" 
+                    && c.startDt <= System.DateTime.Now && c.endDt >= System.DateTime.Now
+                    ).OrderBy(f => f.description).ToList();
+                    //remove management fee if check is submitted ahead of start date
+                    var acctFee = fee.FirstOrDefault(f => f.name == "administration");
+                    if(acctFee!=null && fClasses.Any(c=>c.Confirmed && c.ModifiedAt < acctFee.startDt ))
+                    {
+                        fee.Remove(acctFee);
+                    }
+                    //remove regisration change fee
+                    var regFee = fee.FirstOrDefault(f => f.name == "course change");
+                    if(regFee !=null &&  regFee.startDt > System.DateTime.Now)
+                    {
+                        fee.Remove(regFee);
+                    }
+
+                    summary.Fee = fee;
+                }
+
+                using (var creditDB = DataRepository<Credit>.Create())
+                {
+                    var credits = creditDB.FindAll(c => c.email == user.email);
+                    summary.Checks = credits.Where(c => c.type == "check").ToList();
+                    summary.Discounts = credits.Where(c => c.type == "discount").ToList();
+                }
 
                 return summary;
             }
@@ -89,7 +116,7 @@ namespace web.Service
                               join cr in db.classrooms on c.classroomId equals cr.id
                               join tl in db.timeslots on c.timeslotId equals tl.id
                               where c.deleted.Value == false 
-                              select new { id = c.id, Capacity = cr.capacity.Value, Classroom = cr.name, Course = cs.name,
+                              select new { id = c.id, Capacity = cr.capacity.Value, Classroom = cr.name, Course = cs.name, teacherId=c.teacherId,
                                   Time = tl.start + "-" + tl.end, Semester=c.semester, Fee=c.fee };
                 var registered = from cs in db.class_students
                                  group cs by cs.classId into result
@@ -109,10 +136,9 @@ namespace web.Service
                                   Fee = c.Fee,
                                   NumberofConfirmed = subClass == null? 0:subClass.numberOfConfirmed,
                                   NumberofRegistration = subClass == null ? 0 : subClass.numberOfRegistered,
-                                  Capacity = c.Capacity
+                                  Capacity = c.Capacity,
+                                  TeacherId = c.teacherId
                               }).ToList();
-                
-                db.Dispose();
                 return courses;
             }
         }
@@ -163,6 +189,18 @@ namespace web.Service
             }
 
             return thisClass;
+        }
+
+        public static MyClass GetMyClasses(int userid, int? classId)
+        {
+            var myClass = new MyClass();
+            
+            myClass.MyClasses = GetClasses().Where(c => c.TeacherId == userid).ToList();
+            var defaultClass = classId==null?myClass.MyClasses.First(): myClass.MyClasses.FirstOrDefault(c=>c.id==classId);
+            myClass.classId = defaultClass.id;
+            myClass.ClassDetail = GetClassDetails(myClass.classId);
+
+            return myClass;
         }
 
         public static ClassStudent GetStudentClass(int id)

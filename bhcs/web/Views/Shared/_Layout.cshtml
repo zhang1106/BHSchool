@@ -73,7 +73,6 @@
                             <li>@Html.ActionLink("注册课程", "Create", "class_student")</li>
                             <li>@Html.ActionLink("注册清单", "Index", "class_student")</li>
                             <li>@Html.ActionLink("注册打印", "Print", "class_student")</li>
-                            <li>@Html.ActionLink("Account Balance", "Balance", "class_student")</li>
                         </ul>
                     </li>
 @if (Request.IsAuthenticated)
@@ -101,7 +100,8 @@
                             <li>@Html.ActionLink("参数管理", "Index", "configs")</li>
                             <li>@Html.ActionLink("注册管理", "Index", "registration")</li>
                             <li>@Html.ActionLink("注册统计", "Summary", "registration")</li>
-                            <li>@Html.ActionLink("现金管理", "Index", "balances")</li>
+                            <li>@Html.ActionLink("我的班级", "MyClass", "registration")</li>
+                            <li>@Html.ActionLink("现金管理", "Index", "credits")</li>
                         </ul>
                     </li>
                     }

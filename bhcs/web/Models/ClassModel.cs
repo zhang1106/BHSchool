@@ -12,6 +12,7 @@ namespace web.Models
         public string Course { get; set; }
         public string Classroom { get; set; }
         public string Teacher { get; set; }
+        public int? TeacherId { get; set; }
         public string Time {get;set;}
 
         public bool Deleted { get; set; }

@@ -14,7 +14,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.classId, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownListFor(m => m.classId, Model.ClassList, htmlAttributes: new { @class = "control-dropdown col-md-2" })
+                @Html.DropDownListFor(m => m.classId, Model.ClassList, htmlAttributes: new { onchange = "this.form.submit();", @class = "control-dropdown col-md-2" })
                 <details id="classInfo" open></details>
             </div>
         </div>

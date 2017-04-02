@@ -87,7 +87,7 @@
             <td>@Html.DisplayFor(modelItem => item.description)</td>
             <td>@Html.DisplayFor(modelItem => item.value)</td>
         </tr>
-}
+    }
     <tr>
         <td>学费</td>
         <td>@Model.TotalTuition</td>
@@ -96,6 +96,33 @@
         <td>课本费</td>
         <td>@Model.TotalTextbookFee</td>
     </tr>
+    <tr>
+        <td colspan="2"><hr /></td>
+    </tr>
+    <tr>
+        <td>支票</td><td></td>
+    </tr>
+    @foreach (var item in Model.Checks)
+    {
+        <tr>
+            <td>@Html.DisplayFor(modelItem => item.description)</td>
+            <td>@Html.DisplayFor(modelItem => item.amount)</td>
+        </tr>
+    }
+    <tr>
+        <td colspan="2"><hr /></td>
+    </tr>
+    <tr>
+        <td>Discounts</td>
+        <td></td>
+    </tr>
+    @foreach (var item in Model.Discounts)
+    {
+        <tr>
+            <td>@Html.DisplayFor(modelItem => item.description)</td>
+            <td>@Html.DisplayFor(modelItem => item.amount)</td>
+        </tr>
+    }
     <tr>
         <td colspan="2"><hr /></td>
     </tr>

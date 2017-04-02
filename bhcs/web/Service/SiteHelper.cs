@@ -7,7 +7,7 @@ using Microsoft.AspNet.Identity;
 
 namespace web.Service
 {
-    public class SiteHelper
+    public static class SiteHelper
     {
         public static string UserName
         {
@@ -25,6 +25,5 @@ namespace web.Service
                 return closed == null || Boolean.Parse(closed);
             }
         }
-           
     }
 }

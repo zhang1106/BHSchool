@@ -1,0 +1,20 @@
+﻿
+@model web.Models.MyClass
+
+<div>
+    <div>
+        <h2>My Classes</h2>
+        <hr />
+        @using (Html.BeginForm("LoadMyClass", "Registration", FormMethod.Post, new { id = "theForm", @class = "form-horizontal", role = "form" }))
+        {
+            <div class="form-group">
+                <div class="col-md-10">
+                    @Html.DropDownListFor(m => m.classId, Model.ClassList, htmlAttributes: new { onchange = "this.form.submit();", @class = "control-dropdown col-md-2" })
+                </div>
+            </div>
+        }
+        <hr />
+        @Html.Partial("~/Views/Shared/_ClassDetails.cshtml", Model.ClassDetail)
+
+    </div>
+</div>

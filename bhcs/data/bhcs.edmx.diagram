@@ -14,9 +14,7 @@
         <EntityTypeShape EntityType="bhcsModel.bhclass" Width="1.5" PointX="0.75" PointY="0.75" />
         <EntityTypeShape EntityType="bhcsModel.transactiondetail" Width="1.5" PointX="8.375" PointY="7.75" />
         <EntityTypeShape EntityType="bhcsModel.class_student" Width="1.5" PointX="9.375" PointY="0.75" />
-        <EntityTypeShape EntityType="bhcsModel.config" Width="1.5" PointX="3.375" PointY="9.75" />
         <EntityTypeShape EntityType="bhcsModel.transaction" Width="1.5" PointX="0.75" PointY="8.75" />
-        <EntityTypeShape EntityType="bhcsModel.balance" Width="1.5" PointX="5.375" PointY="9.75" />
         <EntityTypeShape EntityType="bhcsModel.image" Width="1.5" PointX="10.75" PointY="4.5" />
         <EntityTypeShape EntityType="bhcsModel.item" Width="1.5" PointX="11.75" PointY="7.5" />
         <EntityTypeShape EntityType="bhcsModel.item_sharing" Width="1.5" PointX="12.75" PointY="0.5" />
