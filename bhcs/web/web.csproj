@@ -246,6 +246,7 @@
     <Compile Include="Models\TimeSlotModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service\BHEmail.cs" />
+    <Compile Include="Service\ClassSvc.cs" />
     <Compile Include="Service\DBHelper.cs" />
     <Compile Include="Service\RegistrationSvc.cs" />
     <Compile Include="Service\SiteHelper.cs" />
