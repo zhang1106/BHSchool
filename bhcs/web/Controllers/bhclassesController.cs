@@ -23,6 +23,7 @@ namespace web.Controllers
                           join cr in db.classrooms on c.classroomId equals cr.id
                           join tl in db.timeslots on c.timeslotId equals tl.id
                           join t in db.members on c.teacherId equals t.id
+                          where c.deleted == false
                           select new ClassModel() { id = c.id, Deleted=c.deleted.Value, Classroom = cr.description, Semester=c.semester, Fee=c.fee,  Course = cs.name, Time = tl.start + "-" + tl.end, Teacher=t.firstname + " " + t.lastname };
 
             return View(classes.OrderBy(c=>c.Course).ToList());

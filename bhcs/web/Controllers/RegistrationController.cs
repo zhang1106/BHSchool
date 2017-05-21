@@ -81,10 +81,11 @@ namespace web.Controllers
         public ActionResult Summary()
         {
             var classes = from cs in db.class_students
-                          join c in db.bhclasses on cs.classId equals c.id
-                          join cr in db.courses on c.courseId equals cr.id
+                          join c in db.bhclasses.Where(c=>c.deleted==false) on cs.classId equals c.id
+                          join cr in db.courses on c.courseId equals cr.id 
                           join cl in db.classrooms on c.classroomId equals cl.id
                           group cs by new { cs.classId, cr.name, cl.capacity } into result
+                          
                           select new RegistrationReport { Id = result.Key.classId, Capacity = result.Key.capacity.Value, ClassName = result.Key.name, Registered = result.Count(), Confirmed = result.Where(r => r.status == RegistrationStatus.Confirmed.ToString()).Count() };
 
             return View(classes);
