@@ -58,6 +58,13 @@ namespace web.Service
 
                 var summary = new ClassStudentSummary() { Classes = fClasses, Address = address, Household = user };
 
+                using (var creditDB = DataRepository<Credit>.Create())
+                {
+                    var credits = creditDB.FindAll(c => c.email == user.email);
+                    summary.Checks = credits.Where(c => c.type == "check").ToList();
+                    summary.Discounts = credits.Where(c => c.type == "discount").ToList();
+                }
+                
                 using (var confgDB=DataRepository<Config>.Create())
                 {
                     var fee = confgDB.FindAll(c => 
@@ -65,8 +72,8 @@ namespace web.Service
                     && c.startDt <= System.DateTime.Now && c.endDt >= System.DateTime.Now
                     ).OrderBy(f => f.description).ToList();
                     //remove management fee if check is submitted ahead of start date
-                    var acctFee = fee.FirstOrDefault(f => f.name == "administration");
-                    if(acctFee!=null && fClasses.Any(c=>c.Confirmed && c.ModifiedAt < acctFee.startDt ))
+                    var acctFee = fee.FirstOrDefault(f => f.name.Contains("administration"));
+                    if(fee.Any(f=>f.name == "administration") &&  summary.Checks.Any(c=> c.validStart < acctFee.startDt ))
                     {
                         fee.Remove(acctFee);
                     }
@@ -80,12 +87,7 @@ namespace web.Service
                     summary.Fee = fee;
                 }
 
-                using (var creditDB = DataRepository<Credit>.Create())
-                {
-                    var credits = creditDB.FindAll(c => c.email == user.email);
-                    summary.Checks = credits.Where(c => c.type == "check").ToList();
-                    summary.Discounts = credits.Where(c => c.type == "discount").ToList();
-                }
+               
 
                 return summary;
             }
