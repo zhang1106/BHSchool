@@ -43,6 +43,7 @@ namespace web.Controllers
                            select new { id = result.Key.Value, NumberofStudents = result.Count() };
 
             var classes = from c in db.class_students
+                          join bc in db.bhclasses.Where(c => c.deleted == false) on c.classId equals bc.id
                           join h in households on c.studentId equals h.id
                           group c by h.householdId
                           into result
@@ -152,9 +153,8 @@ namespace web.Controllers
 
         // GET: Registration/Create
         public ActionResult Create(int id)                                                              
-        {
-            var user = db.members.FirstOrDefault(m => m.email == User.Identity.GetUserName());
-            var classStudent = RegistrationSvc.GetStudentClass(user.id);
+        {  
+            var classStudent = RegistrationSvc.GetStudentClass(id);
 
             return View("ClassRegistration",classStudent);
         }

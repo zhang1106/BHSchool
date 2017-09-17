@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using data;
 using web.Models;
+using web.Service;
 
 namespace web.Controllers
 {
@@ -18,13 +16,7 @@ namespace web.Controllers
         // GET: bhclasses
         public ActionResult Index()
         {
-            var classes = from c in db.bhclasses
-                          join cs in db.courses on c.courseId equals cs.id
-                          join cr in db.classrooms on c.classroomId equals cr.id
-                          join tl in db.timeslots on c.timeslotId equals tl.id
-                          join t in db.members on c.teacherId equals t.id
-                          where c.deleted == false
-                          select new ClassModel() { id = c.id, Deleted=c.deleted.Value, Classroom = cr.description, Semester=c.semester, Fee=c.fee,  Course = cs.name, Time = tl.start + "-" + tl.end, Teacher=t.firstname + " " + t.lastname };
+            var classes = ClassSvc.GetClasses(true);
 
             return View(classes.OrderBy(c=>c.Course).ToList());
         }
