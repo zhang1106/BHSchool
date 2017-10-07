@@ -64,6 +64,12 @@ namespace web.Service
                     summary.Checks = credits.Where(c => c.type == "check").ToList();
                     summary.Discounts = credits.Where(c => c.type == "discount").ToList();
                 }
+
+                if (summary.Classes.All(c => c.Status.StartsWith("Cancel")))
+                {
+                    summary.Fee = new List<Config>();
+                    return summary;
+                }
                 
                 using (var confgDB=DataRepository<Config>.Create())
                 {
@@ -86,8 +92,6 @@ namespace web.Service
 
                     summary.Fee = fee;
                 }
-
-               
 
                 return summary;
             }
